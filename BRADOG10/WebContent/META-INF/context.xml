@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context reloadable="true">
+	<Resource name="jdbc/bradog"
+		auth="Container"
+		type="javax.sql.DataSource"
+		maxActive="100"
+		maxIdle="30"
+		maxWait="10000"
+		username="root"
+		password="loaijnupr9384"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/bradog?autoReconnect=true"/>
+		
+		<Manager pathname=""/> <!-- disables storage of sessions across restarts -->
+   		<Resource name="BeanManager"
+      		auth="Container"
+      		type="javax.enterprise.inject.spi.BeanManager"
+      		factory="org.jboss.weld.resources.ManagerObjectFactory"/>
+		
+		
+</Context>

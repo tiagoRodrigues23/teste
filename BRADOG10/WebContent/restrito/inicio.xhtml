@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>  
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"  
+      	xmlns:h="http://java.sun.com/jsf/html"  
+      	xmlns:p="http://primefaces.org/ui"  
+   	  	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="menu.xhtml"> 
+               
+	<ui:define name="corpo">
+		<p:graphicImage id="img_body" name="Principal.jpg" library="imagens" />
+		
+		
+<style type="text/css">
+#img_body {
+	width:100%; 						/* Largura fixa para a div */
+	min-height:100%; 					/* Altura mínima */
+	height:100% !important; 			/* Altura ajustável de acordo com o conteúdo */
+	height:100%; 						/* Altura mínima para IE */
+	background-size:100% 100%; 			/* Imagem ocupando toda largura e altura da div */
+	-webkit-background-size: 100%;
+	-o-background-size: 100%;
+	-khtml-background-size: 100%;
+	-moz-background-size: 100% 100%;
+}
+#test img.bg {
+	display:none; 						/* Escondemos a imagem que está no HTML dos navegadores que suportam CSS3 */
+}
+</style>	
+		
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="menuAdmin.xhtml">                
+<ui:define name="corpo">
+
+	 
+    <p:dataTable var="prod" value="#{consultaProdutoBean.listProduto}" emptyMessage="nenhum registro encontrado">  
+        <p:column headerText="id">  
+            <h:outputText value="#{prod.id}" />            
+        </p:column>  
+  
+        <p:column headerText="nome">  
+            <h:outputText value="#{prod.nome}" />  
+        </p:column>
+        
+        <p:column headerText="preço">  
+            <h:outputText value="R$ #{prod.preco}" />  
+        </p:column>
+         <p:column headerText="descrição">  
+            <p:inputTextarea value="#{prod.descricao}" disabled="true"/>  
+        </p:column>  
+         <p:column headerText="imagem" >
+			<p:graphicImage value="#{consultaProdutoBean.imagem}" width="48" height="48">
+				<f:param name="id" value="#{prod.id}" /> 			  
+			</p:graphicImage>
+             			
+		</p:column>
+        <p:column headerText="ações">  
+        	<p:commandLink action="#{consultaProdutoBean.excluir}">
+	            <p:graphicImage name="imagens/Botao_Excluir.png" style="border:0"/>
+	            <f:setPropertyActionListener target="#{consultaProdutoBean.prod}" value="#{prod}"/>
+	            
+            </p:commandLink>
+        
+        	<p:commandLink action="#{consultaProdutoBean.editarProduto}">
+	            <p:graphicImage name="imagens/Botao_Editar.png" style="border:0"/>
+	            <f:setPropertyActionListener target="#{consultaProdutoBean.prod}" value="#{prod}"/>  
+            </p:commandLink>
+        </p:column>
+        
+  
+         
+    </p:dataTable>  
+
+
+</ui:define>
+</ui:composition>
+</html>

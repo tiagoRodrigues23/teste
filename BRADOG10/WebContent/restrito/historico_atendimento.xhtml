@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="menu.xhtml">                
+<ui:define name="corpo">
+
+	<h:form> 
+	<h:panelGrid columns="1">
+		<p:outputLabel value="Escolha o pet:" styleClass="texto"/>
+		<p:selectOneMenu id="pet" value="#{agendaBean.pet}" required="true" widgetVar="pets">
+         	<f:selectItem itemLabel="#{agendaBean.pet}" itemValue="#{agendaBean.pet}" />
+         	<f:selectItems  value="#{agendaBean.listaPet}" />
+    	</p:selectOneMenu> 
+    	<p:commandButton actionListener="#{agendaBean.gerarHistorico}" value="Buscar" update="agenda" /> 
+	
+	</h:panelGrid>
+	
+    <p:dataTable var="agenda" value="#{agendaBean.historicoAgendas}" id="agenda">
+    	<f:facet name="header">
+    		<h:outputText value="Historico de Serviços"/> 
+    	</f:facet>  
+         <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="pet"/> 
+        	</f:facet> 
+            <h:outputText value="#{agenda.pet.nome}" />  
+        </p:column>
+                
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="servico"/> 
+        	</f:facet> 
+            <h:outputText value="#{agenda.servico}" />  
+        </p:column> 
+                
+       
+        
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="data"/> 
+        	</f:facet> 
+            <h:outputText value="#{agenda.data}" > 
+            	<f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:outputText> 
+        </p:column> 
+        
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="confirmado"/> 
+        	</f:facet> 
+            <p:graphicImage library="imagens" name="#{agenda.ativo}.png" height="20" width="20"/>
+            	
+        </p:column> 
+       
+    </p:dataTable> 
+    <br />
+    <h:commandLink id="pdf">
+    	<f:setPropertyActionListener target="#{agendaBean.tipoRelatorio}" value="1"/>
+        <p:fileDownload value="#{agendaBean.arquivoRetorno2}"></p:fileDownload>
+        <p:graphicImage library="imagens" name="pdf.jpg" width="100" height="100" />        
+    </h:commandLink>
+    
+    
+</h:form>
+
+</ui:define>
+</ui:composition>
+</html>

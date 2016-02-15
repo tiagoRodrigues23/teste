@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:b="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	<http>
+
+		<intercept-url pattern="/admin/**" access="ROLE_ADMINISTRADOR" />
+		<intercept-url pattern="/restrito/**" access="ROLE_USUARIO" />
+		<intercept-url pattern="/func/**" access="ROLE_FUNCIONARIO" />
+		<form-login login-page="/publico/login.jsf"			
+			authentication-failure-url="/publico/login.jsf?login_error=1"
+			 authentication-success-handler-ref="myAuthenticationSuccessHandler" />
+		<logout logout-success-url="/publico/login.jsf" logout-url="/j_spring_security_logout"/>
+		<remember-me />
+	</http>
+	
+	<b:bean id="myAuthenticationSuccessHandler"
+        class="controle.AutenticaUsuario" />
+ 
+
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder hash="md5"/>
+			<jdbc-user-service data-source-ref="bradogDataSource"
+				authorities-by-username-query="SELECT c.login, p.permissao 
+											 FROM cliente c, usuario_permissao p 
+											WHERE c.id = p.id_cliente 
+											  AND c.login = ?"
+				users-by-username-query="select login, senha, ativo from cliente WHERE login=?"/>
+		</authentication-provider>
+	</authentication-manager>
+</b:beans>

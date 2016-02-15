@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>  
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"  
+      	xmlns:h="http://java.sun.com/jsf/html"  
+      	xmlns:p="http://primefaces.org/ui"  
+   	  	xmlns:f="http://java.sun.com/jsf/core">
+   	  	
+<ui:composition template="menu.xhtml">                
+<ui:define name="corpo">
+
+<h:outputStylesheet name="estilo.css" library="css"/>
+
+<h:form styleClass="tela"> 
+<p:growl id="msg"/>
+	<p:panel header="Cadastro de Pet" style="text-align:center">
+	<p:focus context="focu"/>
+	
+	<h:panelGrid columns="3" id="focu" styleClass="pGrid">
+		<p:outputLabel value="Nome:" 	for="nome" 		styleClass="texto"	/>
+		<p:outputLabel value="Idade:" 	for="idade" 	styleClass="texto"	/>
+		<p:outputLabel value="Sexo:" 	for="sexo" 		styleClass="texto"	/>
+		
+			<p:inputText id="nome" label="nome:" value="#{petBean.pet.nome}" style="color:gray; width:560px; font-size:16px" required="true"/>
+			<p:inputText id="idade" label="Idade:" value="#{petBean.pet.idade}" style="color:gray; width:80px; font-size:16px" required="true">
+				<f:convertNumber integerOnly="true"/>
+			</p:inputText>
+	
+			<p:selectOneMenu id="sexo" label="Sexo:" styleClass="menu" panelStyleClass="panel" value="#{petBean.pet.sexo}" style="width:180px" required="true" >
+				<f:selectItem itemLabel="Selecione" itemValue="" noSelectionOption="true" />
+				<f:selectItem itemLabel="Macho" itemValue="Macho" />
+				<f:selectItem itemLabel="Fêmea" itemValue="Fêmea" />
+			</p:selectOneMenu>
+		
+	</h:panelGrid>
+	
+	<br></br>
+	
+	<h:panelGrid id="pgrid" columns="4" styleClass="pGrid">
+		<p:outputLabel value="Espécie:" for="especie"	styleClass="texto"	/>
+		<p:outputLabel value="Raça:" 	for="raca" 		styleClass="texto"	/>
+		<p:outputLabel value="Peso:" 	for="peso" 		styleClass="texto"	/>
+		<p:outputLabel value="Propiétario:" for="prop" 	styleClass="texto"	/>
+		
+	
+		<p:selectOneMenu id="especie"  styleClass="menu" panelStyleClass="panel" value="#{petBean.pet.especie}" style="width:200px" required="true">
+			<f:selectItem itemLabel="selecione" itemValue="" noSelectionOption="true"/>
+			<f:selectItem itemLabel="Canina" itemValue="Canina"/>
+			<f:selectItem itemLabel="Felina" itemValue="Felina"/>
+			<f:selectItem itemLabel="Outra" itemValue="Outra"/>
+			<p:ajax event="blur" listener="#{petBean.carregaRaca}" update="pgrid"/>  
+       
+		</p:selectOneMenu>
+		<p:selectOneMenu id="raca"  styleClass="menu" panelStyleClass="panel" value="#{petBean.pet.raca}" style="width:200px" required="true">
+			<f:selectItem itemLabel="selecione" itemValue="" noSelectionOption="true"/>
+			<f:selectItems value="#{petBean.racas}"/>	
+		</p:selectOneMenu>
+		<p:inputText id="peso" label="Peso:" value="#{petBean.pet.peso}"   required="true" style="color:gray; font-size:16px;width:170px">
+			<f:convertNumber maxFractionDigits="4"/>
+		</p:inputText>
+		<p:inputText id="prop" label="Proprietário:" value="#{petBean.pet.cliente.nome}" disabled="true"  required="true" style="color:gray; font-size:16px;width:240px"/>
+	</h:panelGrid>
+	
+	
+	
+	 <p:commandButton value="Salvar" action="#{petBean.salvar}" icon="ui-icon-check" update="msg" style="text-align:right"/>
+	 <p:commandButton value="Limpar" type="reset" icon="ui-icon-cancel"/>
+	</p:panel>
+	</h:form>
+ </ui:define>  
+  
+</ui:composition>  
+</html>

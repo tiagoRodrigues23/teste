@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:z="http://java.sun.com/jsf/composite">
+	  
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet name="estilo.css" library="css"/>
+	<title>Menu</title>
+</h:head>
+
+<h:body>
+<h:form>  
+    <p:growl id="messages"/>
+ 	
+    <p:menubar>
+    	<p:menuitem value="Início" url="/restrito/inicio.jsf" icon="ui-icon-home"/>
+        	<p:submenu label="Pet" icon="ui-icon-document">           
+        		<p:menuitem value="Novo" url="/restrito/cadastro de animais.jsf" icon="ui-icon-circle-plus"/>
+                <p:menuitem value="Consulta" url="/restrito/consultaPet.jsf" icon="ui-icon-search"/>      
+        	</p:submenu>
+ 
+        	<p:submenu label="Agenda" icon="ui-icon-calendar">
+            	<p:menuitem value="Agendamento" url="/restrito/calendario.jsf" icon="ui-icon-calendar" />         
+        	</p:submenu>
+ 
+        	<p:submenu label="Usuário" icon="ui-icon-person">
+        		<p:menuitem value="Editar" url="/restrito/alteraUsuario.jsf" icon="ui-icon-pencil"/>           
+        	</p:submenu>
+        
+        	<p:submenu label="Relatórios" icon="ui-icon-document">
+        		<p:menuitem value="Serviços" url="/restrito/historico_atendimento.jsf" />           
+        	</p:submenu>
+        
+        	<p:menuitem value="Sair" url="#{request.contextPath}/j_spring_security_logout" icon="ui-icon-close" onclick="if (!confirm('Deseja realmente sair?'))return false;"/>
+ 		
+        	<f:facet name="options">
+        	    <p:inputText style="margin-right:10px;width:400px" value="Olá, #{request.remoteUser} Bem Vindo(a)" disabled="true"/>               
+        	</f:facet>
+	</p:menubar>
+</h:form>
+
+ 		<div><ui:insert name="corpo">
+ 		</ui:insert></div>
+ 		 		
+</h:body>
+</html>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="menuAdmin.xhtml">                
+<ui:define name="corpo">
+
+	<h:form>  
+    <p:dataTable var="cliente" value="#{consultaClienteBean.list}" id="clientes" paginator="true" rows="5">
+    	<f:facet name="header">
+    		<h:outputText value="Relatorio de Clientes"/> 
+    	</f:facet>  
+        <p:column >
+        	
+        	<f:facet name="header">
+        		<h:outputText value="id"/> 
+        	</f:facet> 
+            <h:outputText value="#{cliente.id}" />  
+        </p:column>  
+        
+        <p:column > 
+        	<f:facet name="header">
+        		<h:outputText value="nome"/> 
+        	</f:facet>  
+            <h:outputText value="#{cliente.nome}" />  
+        </p:column>
+        
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="login"/> 
+        	</f:facet> 
+            <h:outputText value="#{cliente.login}" />  
+        </p:column> 
+                
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="rua"/> 
+        	</f:facet> 
+            <h:outputText value="#{cliente.rua}" />  
+        </p:column>
+        
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="bairro"/> 
+        	</f:facet> 
+            <h:outputText value="#{cliente.bairro}" />  
+        </p:column> 
+        
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="cidade"/> 
+        	</f:facet> 
+            <h:outputText value="#{cliente.cidade}" />  
+        </p:column>         
+  
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="cep"/> 
+        	</f:facet> 
+            <h:outputText value="#{cliente.cep}" />  
+        </p:column>
+        
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="telefone"/> 
+        	</f:facet> 
+            <h:outputText value="#{cliente.telefone}" />  
+        </p:column> 
+        
+        <p:column >
+        	<f:facet name="header">
+        		<h:outputText value="e-mail"/> 
+        	</f:facet>   
+            <h:outputText value="#{cliente.eMail}" />  
+        </p:column>
+        
+        <p:column >
+        	<f:facet name="header">
+        		<h:outputText value="cpf"/> 
+        	</f:facet>   
+            <h:outputText value="#{cliente.cpf}" />  
+        </p:column>
+        
+        <p:column >
+        	<f:facet name="header">
+        		<h:outputText value="dataNascimento "/> 
+        	</f:facet>        	 
+            <h:outputText value="#{cliente.dataNascimento}" > 
+            	<f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:outputText> 
+        </p:column>          
+                
+         
+    </p:dataTable> 
+    <h:outputText value="Escolha o tipo de relatório:" style="color:#2b338c;font-family: arial, helvetica, sans-serif;
+	font-size: 20px;"/>
+    <br />
+    <h:commandLink id="pdf">
+    	<f:setPropertyActionListener target="#{consultaClienteBean.tipoRelatorio}" value="1"/>
+        <p:fileDownload value="#{consultaClienteBean.arquivoRetorno}"></p:fileDownload>
+        <p:graphicImage library="imagens" name="pdf.jpg" width="100" height="100" />        
+    </h:commandLink>
+     <h:commandLink id="excel">
+    	<p:dataExporter target="clientes" type="xls" fileName="clientes" />
+    	<p:graphicImage library="imagens" name="excel.jpg" width="100" height="100"/>        
+    </h:commandLink>
+    <!--  <h:commandLink id="html">
+    	<f:setPropertyActionListener target="#{consultaClienteBean.tipoRelatorio}" value="3"/>
+        <p:fileDownload value="#{consultaClienteBean.arquivoRetorno}"></p:fileDownload>
+        <p:graphicImage library="imagens" name="html.png" />        
+    </h:commandLink>
+ -->
+   
+</h:form>
+
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>  
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"  
+      	xmlns:h="http://java.sun.com/jsf/html"  
+      	xmlns:p="http://primefaces.org/ui"  
+   	  	xmlns:f="http://java.sun.com/jsf/core">
+   	  
+<ui:composition template="menuAdmin.xhtml">                
+<ui:define name="corpo">
+
+<h:outputStylesheet name="estilo.css" library="css"/>
+
+<h:form enctype="multipart/form-data" styleClass="tela">
+<p:growl id="msg"/>
+	<p:panel header="Cadastro de Produto" style="text-align:center">
+	<p:focus context="pGrid"/>
+	
+	<h:panelGrid columns="2" id="pGrid" styleClass="pGrid">
+		<p:outputLabel value="Nome:" 		for="nome"  styleClass="texto"/>
+		<p:outputLabel value="Preço:" 		for="preco" styleClass="texto"/>
+		
+		<p:inputText id="nome" label="nome:" value="#{produtoBean.produto.nome}"  style="width:670px" required="true"/>
+		<p:inputText id="preco" style="width:150px" required="true" value="#{produtoBean.produto.preco}" />
+	</h:panelGrid>
+	
+	<h:panelGrid columns="1" styleClass="pGrid">	
+		<p:outputLabel value="Descrição:" 	for="desc" 	styleClass="texto"/>
+		<p:inputTextarea id="desc" label="Descrição:" value="#{produtoBean.produto.descricao}"  maxlength="100" autoResize="false" style="height:100px; width:835px" required="true"/>	
+	</h:panelGrid>
+	
+		<p:outputLabel value="Imagem:" styleClass="texto"/>
+		<p:fileUpload  fileUploadListener="#{produtoBean.fileUpload}" mode="advanced" oncomplete="fileUpload.disable()" cancelLabel="Cancelar" invalidFileMessage="Tipo de Arquivo não Suportado" invalidSizeMessage="Tamanho Inválido" label="Abrir" allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/" fileLimit="1" fileLimitMessage="Cada Produto Pode Possuir uma Unica Imagem" dragDropSupport="true" sizeLimit="100000000" update="msg" required="true"/>
+
+		<p:commandButton value="Salvar"  actionListener="#{produtoBean.salvar}" icon="ui-icon-check" update="msg" style="text-align:right"/>
+		<p:commandButton value="Limpar" type="reset" icon="ui-icon-cancel"/>
+
+	</p:panel>
+	   
+</h:form>
+ </ui:define>  
+  
+</ui:composition>  
+</html>

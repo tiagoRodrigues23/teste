@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="menuAdmin.xhtml">                
+<ui:define name="corpo">
+
+	<h:form> 
+	<p:dataTable var="cliente" value="#{consultaClienteBean.list}" emptyMessage="nenhum registro encontrado">  
+        <p:growl id="msg"/> 
+    	
+        <f:facet name="header">
+        	<p:outputLabel value="Busca por CPF" />
+        	<p:inputMask value="#{consultaClienteBean.cpf}" mask="999.999.999-99"/>
+        	<p:commandButton actionListener="#{consultaClienteBean.buscaPorCPF}" icon="ui-icon-search" update="msg"/>
+        </f:facet>
+        <p:column headerText="id" >  
+            <h:outputText value="#{cliente.id}" />  
+        </p:column>  
+        
+        <p:column headerText="nome">  
+            <h:outputText value="#{cliente.nome}" />  
+        </p:column>
+        
+        <p:column headerText="login">  
+            <h:outputText value="#{cliente.login}" />  
+        </p:column> 
+                
+        <p:column headerText="rua">  
+            <h:outputText value="#{cliente.rua}" />  
+        </p:column>
+        
+        <p:column headerText="bairro">  
+            <h:outputText value="#{cliente.bairro}" />  
+        </p:column> 
+        
+        <p:column headerText="cidade">  
+            <h:outputText value="#{cliente.cidade}" />  
+        </p:column>         
+  
+        <p:column headerText="cep">  
+            <h:outputText value="#{cliente.cep}" />  
+        </p:column>
+        
+        <p:column headerText="telefone">  
+            <h:outputText value="#{cliente.telefone}" />  
+        </p:column> 
+        
+        <p:column headerText="e-mail">  
+            <h:outputText value="#{cliente.eMail}" />  
+        </p:column>
+        
+        <p:column headerText="cpf">  
+            <h:outputText value="#{cliente.cpf}" />  
+        </p:column>
+        
+        <p:column headerText="dataNascimento">  
+            <h:outputText value="#{cliente.dataNascimento}" > 
+            	<f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:outputText> 
+        </p:column>          
+        
+        <p:column headerText="ações">  
+        	<p:commandLink action="#{consultaClienteBean.excluir}"
+        	onclick="if(!confirm('Deseja excluir este Cliente?'))return false;">
+            <p:graphicImage name="imagens/Botao_Excluir.png" style="border:0"/>
+            <f:setPropertyActionListener target="#{consultaClienteBean.cliente}" value="#{cliente}"/>  
+            </p:commandLink>
+          
+        	<p:commandLink action="#{consultaClienteBean.editarCliente}">
+            <p:graphicImage name="imagens/Botao_Editar.png" style="border:0"/>
+            <f:setPropertyActionListener target="#{consultaClienteBean.cliente}" value="#{cliente}"/>  
+            </p:commandLink>
+        </p:column>
+        
+  		 <p:column headerText="pets">
+  		 	<p:commandLink action="#{consultaClienteBean.buscaPet}">
+            <p:graphicImage name="imagens/Bradog.jpg" style="border:0"/>
+            <f:setPropertyActionListener target="#{consultaClienteBean.cliente}" value="#{cliente}"/>  
+            </p:commandLink>
+  		 </p:column>
+         
+    </p:dataTable>  
+</h:form>
+
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>  
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"  
+   	  xmlns:f="http://java.sun.com/jsf/core">
+<ui:composition template="menuAdmin.xhtml">                
+<ui:define name="corpo">
+
+<h:outputStylesheet name="estilo.css" library="css"/>
+
+<br></br>
+<h:form styleClass="tela">
+<p:layout  >
+    <p:layoutUnit position="center" resizable="true" size="100" minSize="40" maxSize="200" >
+			<p:growl id="growl" sticky="true"  />
+			<p:panel header="Edição de Funcionário" style="text-align:center;border:0">
+			<p:messages/>
+			<p:focus context="pGrid"/>
+			<h:panelGrid columns="2" id="pGrid" cellpadding="5" cellspacing="1"   style="text-align:center">
+			
+			<p:outputLabel value="login:" for="login"  styleClass="texto"/>
+			<p:inputText id="login" label="Login:"  value="#{consultaFuncionarioBean.func.login}"   
+			required="true" requiredMessage="o login deve ser informado"/>
+			
+			<p:outputLabel value="Senha:" for="senha"  styleClass="texto"/>
+			<p:password id="senha" label="Senha:" value="#{consultaFuncionarioBean.func.senha}" required="true" 
+			feedback="true" goodLabel="Boa" weakLabel="Fraca" strongLabel="Forte" placeholder="informe sua senha" promptLabel="Escolha sua Senha"/>
+						
+			</h:panelGrid>
+			</p:panel>
+				<p:commandButton value="salvar" action="#{consultaFuncionarioBean.editar}" update="growl" icon="ui-icon-check" style="text-align:right"/>
+ 			<p:commandButton  type="reset" value="Limpar" icon="ui-icon-cancel"/>
+  
+    </p:layoutUnit>
+ 
+    <p:layoutUnit position="east" size="200">
+	    <p:panel header="Permissões" style="border:0">
+		    <h:panelGrid columns="2">
+		   
+		    <p:selectBooleanCheckbox id="agenda" value="#{consultaFuncionarioBean.func.permissao.agenda}"/>
+		    <p:outputLabel value="-Agenda" styleClass="texto"/>
+		    <p:selectBooleanCheckbox id="usuario" value="#{consultaFuncionarioBean.func.permissao.usuario}"/>
+		    <p:outputLabel value="-Usuários" styleClass="texto"/>
+		    <p:selectBooleanCheckbox id="dados" value="#{consultaFuncionarioBean.func.permissao.dados}"/>
+		    <p:outputLabel value="-Dados" styleClass="texto"/>
+		    <p:selectBooleanCheckbox id="relatorio" value="#{consultaFuncionarioBean.func.permissao.relatorio}"/>
+		    <p:outputLabel value="-Relatórios" styleClass="texto"/>
+		    <p:selectBooleanCheckbox id="comanda" value="#{consultaFuncionarioBean.func.permissao.comanda}"/>
+		    <p:outputLabel value="-Comandas" styleClass="texto"/>
+		    
+		    
+		    </h:panelGrid>
+	    </p:panel>
+	    	 </p:layoutUnit>
+</p:layout>
+ 
+</h:form>
+</ui:define>
+</ui:composition>
+</html>

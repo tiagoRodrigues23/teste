@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Menu Administrador</title>
+</h:head>
+<h:body>
+
+<h:form>  
+    <p:growl id="messages"/>
+ 
+    <p:menubar>
+    <p:menuitem value="Início" url="/admin/inicio.jsf" icon="ui-icon-home" />
+        <p:submenu label="Dados" icon="ui-icon-document">
+        	<p:submenu label="Produtos" icon="ui-icon-document">
+            	<p:menuitem value="Novo" url="/admin/cadastro de produto.jsf" icon="ui-icon-circle-plus" disabled="#{permissaoBean.funcionario.permissao.dados}" />
+            	<p:menuitem value="Consultar" url="/admin/consultaProduto.jsf" icon="ui-icon-search" disabled="#{permissaoBean.funcionario.permissao.dados}" />
+            </p:submenu>
+           <p:submenu label="Serviços" icon="ui-icon-document">
+            	<p:menuitem value="Novo" url="/admin/cadastro_servico.jsf" icon="ui-icon-circle-plus" disabled="#{permissaoBean.funcionario.permissao.dados}" />
+            	<p:menuitem value="Consultar" url="/admin/consultaServico.jsf" icon="ui-icon-search" disabled="#{permissaoBean.funcionario.permissao.dados}" />
+            </p:submenu>
+           
+            
+        </p:submenu>
+ 
+        <p:submenu label="Agenda" icon="ui-icon-calendar">
+             <p:menuitem value="Novo" url="/admin/agendamento.jsf" icon="ui-icon-circle-plus" disabled="#{permissaoBean.funcionario.permissao.agenda}" />
+             <p:menuitem value="Editar" url="/admin/agenda.jsf" icon="ui-icon-pencil" disabled="#{permissaoBean.funcionario.permissao.agenda}"  />
+            
+        </p:submenu>
+ 
+        <p:submenu label="Usuário" icon="ui-icon-person">
+        	<p:submenu label="Funcionário" icon="ui-icon-person" >
+	            <p:menuitem value="Novo" url="/admin/novoUsuario.jsf" icon="ui-icon-circle-plus" disabled="#{permissaoBean.funcionario.permissao.usuario}" />
+	            <p:menuitem value="Consultar" url="/admin/consultaFunc.jsf" icon="ui-icon-search" disabled="#{permissaoBean.funcionario.permissao.usuario}" />
+            </p:submenu>
+            <p:submenu label="Cliente" icon="ui-icon-person">
+            	<p:menuitem value="Novo" url="/admin/cadastro_usuarios.jsf" icon="ui-icon-circle-plus" disabled="#{permissaoBean.funcionario.permissao.usuario}" />
+	            <p:menuitem value="Consultar" url="/admin/consultaUsuarios.jsf" icon="ui-icon-search" disabled="#{permissaoBean.funcionario.permissao.usuario}" />
+            
+            </p:submenu>
+        </p:submenu>
+ 		<p:submenu label="Relatórios" icon="ui-icon-document">
+ 			<p:menuitem value="Usuários" url="/admin/relatorio_usuarios.jsf" disabled="#{permissaoBean.funcionario.permissao.relatorio}" />
+ 			<p:submenu label="Serviços" icon="ui-icon-document">
+ 				<p:menuitem value="Todos" url="/admin/relatorio_servicos.jsf" disabled="#{permissaoBean.funcionario.permissao.relatorio}" />
+ 				<p:menuitem value="Por cliente" url="/admin/relatorio_servicos_cliente.jsf" disabled="#{permissaoBean.funcionario.permissao.relatorio}" />
+ 				<p:menuitem value="Por data" url="/admin/relatorio_servico_data.jsf" disabled="#{permissaoBean.funcionario.permissao.relatorio}" /> 				
+ 			</p:submenu>
+ 		</p:submenu>
+       <p:menuitem value="Comandas" url="/admin/comandas.jsf" icon="ui-icon-cart" disabled="#{permissaoBean.funcionario.permissao.comanda}" />
+ 
+        <p:menuitem value="Sair" url="#{request.contextPath}/j_spring_security_logout" icon="ui-icon-close" onclick="if (!confirm('Deseja realmente sair?'))return false;"/>
+ 
+        <f:facet name="options">
+            <p:inputText style="margin-right:10px;width:200px" value="ÁREA ADMINISTRATIVA" disabled="true"/>
+                      
+        </f:facet>
+    </p:menubar>
+</h:form>
+ <div><ui:insert name="corpo"></ui:insert></div>
+
+</h:body>
+</html>

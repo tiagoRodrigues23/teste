@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="menuAdmin.xhtml">                
+<ui:define name="corpo">
+
+	<h:form> 
+	<p:dataTable var="servico" value="#{consultaServicoBean.servicos}" emptyMessage="nenhum registro encontrado">  
+        <p:column headerText="id">  
+            <h:outputText value="#{servico.id}" />  
+        </p:column>  
+  
+        <p:column headerText="nome">  
+            <h:outputText value="#{servico.nome}" />  
+        </p:column>
+        <p:column headerText="preço">  
+            <h:outputText value="R$#{servico.preco}" />  
+        </p:column>
+        
+        <p:column headerText="ações">  
+        	<p:commandLink action="#{consultaServicoBean.excluir}"
+        	onclick="if(!confirm('Deseja excluir este Serviço?'))return false;">
+            <p:graphicImage name="imagens/Botao_Excluir.png" style="border:0"/>
+            <f:setPropertyActionListener target="#{consultaServicoBean.servico}" value="#{servico}"/>  
+            </p:commandLink>
+        
+        	<p:commandLink action="#{consultaServicoBean.editarServico}">
+            <p:graphicImage name="imagens/Botao_Editar.png" style="border:0"/>
+            <f:setPropertyActionListener target="#{consultaServicoBean.servico}" value="#{servico}"/>  
+            </p:commandLink>
+        </p:column>         
+    </p:dataTable>  
+</h:form>
+
+</ui:define>
+</ui:composition>
+</html>

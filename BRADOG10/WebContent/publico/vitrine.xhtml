@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>  
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"  
+     	xmlns:h="http://java.sun.com/jsf/html"  
+      	xmlns:p="http://primefaces.org/ui"  
+   	  	xmlns:f="http://java.sun.com/jsf/core">
+   	  
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet name="estilo.css" library="css"/>
+
+	<title>Produtos</title>
+
+</h:head>
+<h:body>
+
+	
+
+<div id="login_principal">
+	
+	<div id="cabecalho">
+		<p:graphicImage id="img" name="logo.png" library="imagens" />
+	</div>
+	
+	
+	<div id="corpo">
+		<h:form id="form">
+		    <p:carousel var="prod" value="#{consultaProdutoBean.listProduto}" headerText="PRODUTOS" circular="true" autoPlayInterval="2000" itemStyle="width:300;height:400" style="text-align:center" >
+		        <h:panelGrid columns="2" style="width:100%" cellpadding="5" columnClasses="label,value">
+		            <f:facet name="header">
+		               <p:graphicImage value="#{consultaProdutoBean.imagem}"  width="125" height="150" cache="false">
+		              		<f:param name="id" value="#{prod.id}"/>
+		               </p:graphicImage>
+		         	 </f:facet> 
+		           
+		            <h:outputText value="nome:" />
+		            <h:outputText value="#{prod.nome}" />
+		            
+		            <h:outputText value="preço:" />
+		            <h:outputText value="R$ #{prod.preco}" />
+		 
+		 
+		            <h:outputText value="Descrição:" />
+		            <f:facet name="footer">
+		                <p:inputTextarea value="#{prod.descricao}" disabled="true"/>
+		             </f:facet> 
+		          </h:panelGrid>
+		 
+		        
+		    </p:carousel>
+		 </h:form>
+ </div>
+	
+	<div id="corpo2">
+		<p:graphicImage id="achou" name="achou.png" library="imagens" />
+	</div>	
+
+
+</div>
+</h:body>
+</html>

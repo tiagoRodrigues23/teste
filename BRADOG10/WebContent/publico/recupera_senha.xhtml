@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet name="estilo.css" library="css"/>
+	
+	<title>Recuperação de Senha</title>
+<style type="text/css">
+.ui-growl-item-container.ui-state-highlight {
+    border-color: #2b338c;
+    background-color: orange;
+}
+</style>
+</h:head>
+
+
+<h:body>
+<div id="login_principal">
+	
+	<div id="cabecalho">
+		<p:graphicImage id="img" name="logo.png" library="imagens" />
+	</div>
+
+	<div id="corpo">
+		<h5>Informe os dados para recuperar sua senha</h5>
+		<h:form id="teste">
+		<p:growl id="growl" sticky="true" life="50000" />
+		<p:focus context="pGrid"/>
+		<h:panelGrid columns="1" id="pGrid">
+			<p:outputLabel value="CPF:" for="cpf"  style="color:#2b338c"/>
+			<p:inputMask id="cpf" label="cpf:" mask="999.999.999-99" value="#{recuperaSenhaBean.cliente.cpf}"  style="color:#999999;width:180px" required="true" requiredMessage="Informe o CPF" />
+	
+			<p:outputLabel value="E-MAIL:" for="mail"  style="color:#2b338c;"/>
+			<p:inputText id="mail" label="E-mail:"  value="#{recuperaSenhaBean.cliente.eMail}" validatorMessage="e-mail inválido" requiredMessage="Informe o e-mail" style="color:#999999;width:400px" required="true">
+				<f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+			</p:inputText>
+			<!-- status -->
+ 
+			<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 			<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+    			<p:graphicImage library="imagens" name="ajax-loader1.gif" />
+			</p:dialog>
+ 		</h:panelGrid>
+		
+ 		<p:commandButton value="Enviar" action="#{recuperaSenhaBean.enviar}" update="growl" icon="ui-icon-mail-closed" style="text-align:right"/>
+		</h:form>
+
+		<h6><a href="/BRADOG10/publico/login.jsf">clique aqui</a> para voltar à tela de login</h6>
+
+		
+
+	</div>
+	<div id="corpo2">
+		<p:graphicImage id="achou" name="achou.png" library="imagens" />
+	</div>
+	
+</div>
+</h:body>
+</html>

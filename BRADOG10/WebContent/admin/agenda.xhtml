@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>  
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:p="http://primefaces.org/ui"  
+   	  xmlns:f="http://java.sun.com/jsf/core">
+   
+<ui:composition template="menuAdmin.xhtml">                
+<ui:define name="corpo">
+
+<div>
+ 	
+<script type="text/javascript">
+                PrimeFaces.locales['pt'] = {  
+                    closeText: 'Fechar',  
+                    prevText: 'Anterior',  
+                    nextText: 'Próximo',  
+                    currentText: 'Começo',  
+                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],  
+                    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun', 'Jul','Ago','Set','Out','Nov','Dez'],  
+                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],  
+                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],  
+                    dayNamesMin: ['D','S','T','Q','Q','S','S'],  
+                    weekHeader: 'Semana',  
+                    firstDay: 1,  
+                    isRTL: false,  
+                    showMonthAfterYear: false,  
+                    yearSuffix: '',  
+                    timeOnlyTitle: 'Só Horas',  
+                    timeText: 'Tempo',  
+                    hourText: 'Hora',  
+                    minuteText: 'Minuto',  
+                    secondText: 'Segundo',  
+                    currentText: 'Data Atual',  
+                    ampm: false,  
+                    month: 'Mês',  
+                    week: 'Semana',  
+                    day: 'Dia',  
+                    allDayText : 'Todo Dia'  
+                };  
+        </script>
+ 
+
+<h:form id="form">  
+  
+    <p:growl id="messages" showDetail="true" />  
+  
+    <p:schedule id="schedule" locale="pt" value="#{agendaAdminBean.eventModel}" widgetVar="myschedule" timeFormat="H:mm" resizable="false" draggable="false" >  
+  
+      <p:ajax event="eventSelect" listener="#{agendaAdminBean.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show()" />  
+        
+    </p:schedule>  
+  
+    <p:dialog widgetVar="eventDialog" header=" Detalhes do Agendamento" showEffect="clip" hideEffect="explode">
+    <p:growl id="growl"/>  
+        <h:panelGrid id="eventDetails" columns="2">
+        	<h:outputLabel for="cliente" value="cliente:" />  
+            <p:inputText id="cliente" value="#{agendaAdminBean.agenda.cliente.nome}" disabled="true"/> 
+            
+            <p:outputLabel for="pet" value="Pet:" />
+            <p:selectOneMenu id="pet" value="#{agendaAdminBean.agenda.pet.nome}" required="true" disabled="true">
+            	<f:selectItem itemLabel="#{agendaAdminBean.agenda.pet.nome}" itemValue="#{agendaAdminBean.agenda.pet.nome}" />
+            	<f:selectItems  value="#{agendaAdminBean.listaPet}" />
+            </p:selectOneMenu>
+             
+            <p:outputLabel for="servico" value="serviço:" />
+            <p:selectOneMenu id="servico" value="#{agendaAdminBean.agenda.servico}" required="true" requiredMessage="o serviço deve ser informado">
+            	<f:selectItem itemLabel="#{agendaAdminBean.agenda.servico}" itemValue="#{agendaAdminBean.agenda.servico}" />
+            	<f:selectItems  value="#{agendaAdminBean.servicos}" />
+            </p:selectOneMenu>              
+  
+            <p:outputLabel for="from" value="Inicio:" />  
+            <p:inputText  required="true"   id="from" value="#{agendaAdminBean.event.startDate}" disabled="true">
+            	<f:convertDateTime pattern="dd/MM/yy"/>
+            </p:inputText>
+            
+            
+            
+            <p:outputLabel for="horas" value="horas:" />
+            <p:selectOneMenu id="horas" value="#{agendaAdminBean.agenda.horario}" required="true">
+            	<f:selectItem itemLabel="#{agendaAdminBean.agenda.horario}" itemValue="#{agendaAdminBean.agenda.horario}"/>
+            	<f:selectItems  value="#{agendaAdminBean.horarioList}" />
+            </p:selectOneMenu>                  
+                  
+            <p:outputLabel for="confirm" value="Confirmado:" />  
+            <h:selectBooleanCheckbox id="confirm" value="#{agendaAdminBean.agenda.ativo}"/>  
+  
+             
+                    
+        </h:panelGrid> 
+        <p:commandButton id="addButton" value="Salvar" actionListener="#{agendaAdminBean.addEvent}" oncomplete="myschedule.update();eventDialog.hide();" update="growl" />  
+		<p:commandButton id="excluirButton" value="Excluir" actionListener="#{agendaAdminBean.excluirAgenda}" oncomplete="myschedule.update();eventDialog.hide();" 
+		 update="growl" />
+			  
+    </p:dialog>
+    <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 	<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+    	<p:graphicImage library="imagens" name="ajax-loader1.gif"/>
+	</p:dialog>
+</h:form> 
+</div> 
+<style type="text/css">
+    .value {
+        width: 1000px;
+    }
+    .myclass .fc-event,
+	.myclass a,
+	.myclass .fc-event-inner{
+	   background-color: red;
+	   border-color: red;
+	   color: white;
+}
+.event1 .fc-event-inner {
+
+    background:green;
+    border-color: red;
+    color:white;
+}
+
+</style>
+</ui:define>
+</ui:composition>
+</html>

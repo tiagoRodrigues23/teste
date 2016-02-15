@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+	  
+<h:outputStylesheet name="estilo.css" library="css"/>
+<ui:composition template="menu.xhtml">                
+<ui:define name="corpo">
+
+<h:form styleClass="tela" >
+<p:growl id="growl" sticky="true"  />
+<p:panel header="Edição de Cliente" style="text-align:center">
+<p:messages/>
+<p:focus context="focu"/>
+
+
+<h:panelGrid columns="3" id="focu" styleClass="pGrid">
+	<p:outputLabel value="Nome:" 	for="nome"  styleClass="texto"/>
+	<p:outputLabel value="CPF:" 	for="cpf"  	styleClass="texto"/>
+	<p:outputLabel value="Sexo:" 	for="sexo" 	styleClass="texto"/>
+	
+	<p:inputText id="nome" label="nome:"  value="#{clienteBean.cliente.nome}" style="width:470px" required="true" requiredMessage="o nome deve ser preenchido"/>
+	<p:inputMask id="cpf" label="cpf:" disabled="true" mask="999.999.999-99" value="#{clienteBean.cliente.cpf}" style="width:150px" required="true" requiredMessage="o cpf é obrigatorio" validatorMessage="cpf inválido" >
+	 	<f:validator validatorId="validaCPF"/>
+	</p:inputMask>
+	<p:selectOneMenu id="sexo" label="Sexo:" styleClass="menu" panelStyleClass="panel" value="#{clienteBean.cliente.sexo}" required="true" style="width:200px">
+		<f:selectItem itemLabel="selecione" itemValue="" noSelectionOption="true"/>
+		<f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+		<f:selectItem itemLabel="Feminino" 	itemValue="Femminino" />
+	</p:selectOneMenu>
+</h:panelGrid>
+
+<h:panelGrid columns="3" styleClass="pGrid">
+	<p:outputLabel value="Data de Nascimento:" 	for="data" 	styleClass="texto"/>
+	<p:outputLabel value="E-mail:" 				for="mail" 	styleClass="texto"/>
+	<p:outputLabel value="Telefone:" 				for="fone" 	styleClass="texto"/>
+	
+
+	<p:inputMask id="data" style="color:gray;width:180px" required="true" value="#{clienteBean.cliente.dataNascimento}" mask="99/99/9999">
+		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+	</p:inputMask>
+	<p:inputText id="mail" label="E-mail:"  value="#{clienteBean.cliente.eMail}" validatorMessage="e-mail inválido" style="width:400px" required="true">
+		<f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+"/>
+	</p:inputText>	
+	<p:inputMask id="fone" style="color:gray;width:230px" required="true" value="#{clienteBean.cliente.telefone}" mask="(99)9999-9999"/>
+		
+	
+</h:panelGrid>
+
+
+<h:panelGrid columns="3" styleClass="pGrid">
+	<p:outputLabel value="Rua:" 	for="rua"  		styleClass="texto"/>
+	<p:outputLabel value="Número:" 	for="numero" 	styleClass="texto"/>
+	<p:outputLabel value="Bairro:" 	for="bairro" 	styleClass="texto"/>
+	
+	<p:inputText id="rua" label="Rua:"  value="#{clienteBean.cliente.rua}" style="width:480px" required="true"/>
+	<p:inputText id="numero" label="Número:" value="#{clienteBean.cliente.numero}" style="width:100px" converterMessage="número inválido" required="true">
+		<f:convertNumber integerOnly="true"/>
+	</p:inputText>
+	<p:inputText id="bairro" label="Bairro:" value="#{clienteBean.cliente.bairro}" style="width:230px" required="true"/>
+</h:panelGrid>
+
+<h:panelGrid columns="3" styleClass="pGrid">
+	<p:outputLabel value="Cidade:" 	for="cidade" 	styleClass="texto"/>
+	<p:outputLabel value="UF:" 		for="uf" 		styleClass="texto"/>
+	<p:outputLabel value="Cep:" 	for="cep"  		styleClass="texto"/>
+	
+	<p:inputText id="cidade" label="Cidade:"  value="#{clienteBean.cliente.cidade}" style="width:415px" required="true"/>	
+	<p:selectOneMenu id="uf" label="UF:" styleClass="menu" panelStyleClass="panel" value="#{clienteBean.cliente.uf}" style="width:210px" required="true">
+		<f:selectItem itemLabel="selecione" itemValue="" noSelectionOption="true"/>
+		<f:selectItems value="#{clienteBean.ufs}"/>	
+	</p:selectOneMenu>
+	<p:inputMask id="cep" label="Cep:" mask="99999-999" value="#{clienteBean.cliente.cep}" style="width:190px" required="true"/>	
+</h:panelGrid>
+
+<h:panelGrid columns="2" styleClass="pGrid">	
+	<p:outputLabel value="Login:" for="login"  		styleClass="texto"/>
+	<p:outputLabel value="Senha:" for="senha"  		styleClass="texto"/>
+
+	<p:inputText id="login" label="Login:" disabled="true" value="#{clienteBean.cliente.login}" style="width:315px" required="true"/>
+	<p:password id="senha" label="Senha:" value="#{clienteBean.cliente.senha}"  style="width:315px" required="true" feedback="true" goodLabel="Boa" weakLabel="Fraca" strongLabel="Forte" redisplay="false" placeholder="Digite a senha desejada" promptLabel="Escolha sua Senha"/>
+</h:panelGrid>
+
+ 	<p:commandButton value="salvar" action="#{clienteBean.editar}" update="growl" icon="ui-icon-check" style="text-align:right"/>
+ 	<p:commandButton  type="reset" value="Limpar" icon="ui-icon-cancel"/>
+
+</p:panel>
+</h:form>
+
+</ui:define>
+</ui:composition>
+</html>

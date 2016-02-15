@@ -1,0 +1,75 @@
+﻿<?xml version='1.0' encoding='UTF-8' ?>  
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"  
+     	xmlns:h="http://java.sun.com/jsf/html"  
+      	xmlns:p="http://primefaces.org/ui"  
+   	  	xmlns:f="http://java.sun.com/jsf/core">
+   	  
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<h:outputStylesheet name="estilo.css" library="css"/>
+
+	<title>Login</title>
+<!-- <script>
+			window.onbeforeunload = function(e) {
+				#{editBingoBean.teste}
+		  	return '#{editBingoBean.bingo.name}';
+		};
+		</script> -->
+</h:head>
+<h:body>
+
+	<h:panelGroup rendered="#{!empty param.login_error}">
+		<script>
+			alert('erro ao efetuar o login \nmotivo: #{SPRING_SECURITY_LAST_EXCEPTION.message}');
+		</script>				
+	</h:panelGroup>
+
+<div id="login_principal">
+	
+	<div id="cabecalho">
+		<p:graphicImage id="img" name="logo.png" library="imagens" />
+	</div>
+	
+	
+	<div id="corpo">
+	<h5>Seja Bem Vindo!</h5>
+	
+		<form id="login" method="post" action="#{request.contextPath}/j_spring_security_check">	
+			
+			<p:focus context="pGrid"/>
+			<h:panelGrid id="pGrid"  columns="1" columnClasses="alignTop">
+		
+				<p:outputLabel value="Login:" for='j_username' style="width:100%;height:170%;color:#2b338c" />
+				<p:inputText id='j_username' style="color:#999999"/>
+				<p:outputLabel value="Senha:" for='j_password' style="color:#2b338c"/>
+				<p:password id='j_password' style="color:#999999"/>
+				<p:outputLabel value="Entrar automaticamente:" for="_spring_security_remember_me" style="color:#2b338c" />
+				<h:selectBooleanCheckbox id="_spring_security_remember_me"/>
+			
+				<h:commandButton value="Entrar" style="width:90%;height:40px;color:#2b338c" />
+		
+			</h:panelGrid>	
+				<script>
+					document.getElementById("login").j_username.value="#{SPRING_SECURITY_LAST_USERNAME}"
+				</script>
+		</form>
+	</div>
+	
+	<div id="corpo1">
+		<h3>Não possui acesso?</h3>
+		<h6><a href="/BRADOG10/publico/cadastro_usuarios.jsf">clique aqui</a> para fazer o cadastro</h6>
+		<br/>
+		<h3>Esqueceu a senha?</h3>
+		<h6><a href="/BRADOG10/publico/recupera_senha.jsf">clique aqui</a> para recuperar sua senha</h6>
+	</div>
+	
+	<div id="corpo2">
+		<p:graphicImage id="achou" name="achou.png" library="imagens" />
+	</div>	
+
+
+</div>
+</h:body>
+</html>

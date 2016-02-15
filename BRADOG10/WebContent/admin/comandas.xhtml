@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="menuAdmin.xhtml">                
+<ui:define name="corpo">
+	<h:outputStylesheet name="estilo.css" library="css"/>
+	<h:form> 
+	<p:growl id="growl"/>
+	<p:outputLabel value="Data:" styleClass="texto"/>
+	<p:calendar value="#{comandaBean.data}" showOn="button" timeZone="GMT-03:00" locale="pt_BR"/> 
+	<p:outputLabel value="CPF (opcional):" styleClass="texto"/>
+	<p:inputMask id="cpf" label="cpf:" mask="999.999.999-99" value="#{comandaBean.cpf}" style="width:150px"/>
+	<p:commandButton actionListener="#{comandaBean.gerarComandas}" value="Gerar" update="tabela,total"/>
+		 
+	 
+    <p:dataTable id="tabela" var="comanda" value="#{comandaBean.comandas}" emptyMessage="nenhum registro encontrado" style="text-align:left">  
+        <p:column headerText="cliente">  
+            <h:outputText value="#{comanda.cliente}" />  
+        </p:column>  
+  
+        <p:column headerText="serviço">  
+            <h:outputText value="#{comanda.servico}" />  
+        </p:column>
+        <p:column headerText="data">  
+            <h:outputText value="#{comanda.data}" >
+            	<f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:outputText>  
+        </p:column>
+        <p:column headerText="valor">  
+            <h:outputText value="#{comanda.valor}">
+            	<f:convertNumber currencySymbol="R$" type="currency"/>
+            </h:outputText>  
+        </p:column>
+                         
+    </p:dataTable> 
+    <h:outputLabel value="total"/>
+     <h:outputLabel id="total" value="#{comandaBean.total}" disabled="true" style="color:blue">
+     	<f:convertNumber currencySymbol="R$" type="currency"/>
+     </h:outputLabel>  
+    
+</h:form>
+<script type="text/javaScript">
+PrimeFaces.locales['pt_BR'] = {
+	    closeText : 'Fechar',
+	    prevText : 'Anterior',
+	    nextText : 'Próximo',
+	    currentText : 'Começo',
+	    monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho','Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
+	    monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago','Set', 'Out', 'Nov', 'Des' ],
+	    dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta','Sábado' ],
+	    dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+	    dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+	    weekHeader : 'Semana',
+	    firstDay : 1,
+	    isRTL : false,
+	    showMonthAfterYear : false,
+	    yearSuffix : '',
+	    timeOnlyTitle : 'Só Horas',
+	    timeText : 'Tempo',
+	    hourText : 'Hora',
+	    minuteText : 'Minuto',
+	    secondText : 'Segundo',
+	    ampm : false,
+	    month : 'Mês',
+	    week : 'Semana',
+	    day : 'Dia',
+	    allDayText : 'Todo Dia'
+	};
+		
+</script>
+</ui:define>
+</ui:composition>
+</html>

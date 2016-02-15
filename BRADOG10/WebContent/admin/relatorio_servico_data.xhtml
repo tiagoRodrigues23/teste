@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="menuAdmin.xhtml">                
+<ui:define name="corpo">
+	<h:outputStylesheet name="estilo.css" library="css"/>
+	<h:form> 
+		<p:outputLabel value="De:" styleClass="texto"/>
+		<p:calendar value="#{agendaBean.data1}" showOn="button" timeZone="GMT-03:00" locale="pt_BR" required="true" styleClass="texto"/> 
+	 	
+	 	<p:outputLabel value="Até:" styleClass="texto"/>
+		<p:calendar value="#{agendaBean.data2}" showOn="button" timeZone="GMT-03:00" locale="pt_BR" required="true"/> 
+	 
+	 	<p:commandButton value="Buscar" actionListener="#{agendaBean.buscaAgendaPorData}" update="servicos"/>
+	 	
+		<p:dataTable var="agenda" value="#{agendaBean.listaAgendasCliente}" id="servicos" paginator="true" rows="5">
+    	<f:facet name="header">
+    		<h:outputText value="Relatorio de Serviços"/> 
+    	</f:facet>  
+        <p:column >
+        	
+        	<f:facet name="header">
+        		<h:outputText value="id"/> 
+        	</f:facet> 
+            <h:outputText value="#{agenda.id}" />  
+        </p:column>  
+        
+        <p:column > 
+        	<f:facet name="header">
+        		<h:outputText value="cliente"/> 
+        	</f:facet>  
+            <h:outputText value="#{agenda.cliente.nome}" />  
+        </p:column>
+        
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="servico"/> 
+        	</f:facet> 
+            <h:outputText value="#{agenda.servico}" />  
+        </p:column> 
+                
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="pet"/> 
+        	</f:facet> 
+            <h:outputText value="#{agenda.pet.nome}" />  
+        </p:column>
+        
+        <p:column >  
+        	<f:facet name="header">
+        		<h:outputText value="data"/> 
+        	</f:facet> 
+            <h:outputText value="#{agenda.data}" > 
+            	<f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:outputText> 
+        </p:column> 
+        
+       
+    </p:dataTable> 
+    <h:outputText value="Escolha o tipo de relatório:" style="color:#2b338c;font-family: arial, helvetica, sans-serif;
+	font-size: 20px;"/>
+    <br />
+    <h:commandLink id="pdf">
+    	<f:setPropertyActionListener target="#{agendaBean.tipoRelatorio}" value="1"/>
+        <p:fileDownload value="#{agendaBean.arquivoRetornoData}"></p:fileDownload>
+        <p:graphicImage library="imagens" name="pdf.jpg" width="100" height="100" />        
+    </h:commandLink>
+     <h:commandLink id="excel">
+    	<p:dataExporter target="servicos" type="xls" fileName="servicos" />
+    	<p:graphicImage library="imagens" name="excel.jpg" width="100" height="100"/>        
+    </h:commandLink>
+   
+   
+</h:form>
+<script type="text/javaScript">
+PrimeFaces.locales['pt_BR'] = {
+	    closeText : 'Fechar',
+	    prevText : 'Anterior',
+	    nextText : 'Próximo',
+	    currentText : 'Começo',
+	    monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho','Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro' ],
+	    monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago','Set', 'Out', 'Nov', 'Des' ],
+	    dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta','Sábado' ],
+	    dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+	    dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+	    weekHeader : 'Semana',
+	    firstDay : 1,
+	    isRTL : false,
+	    showMonthAfterYear : false,
+	    yearSuffix : '',
+	    timeOnlyTitle : 'Só Horas',
+	    timeText : 'Tempo',
+	    hourText : 'Hora',
+	    minuteText : 'Minuto',
+	    secondText : 'Segundo',
+	    ampm : false,
+	    month : 'Mês',
+	    week : 'Semana',
+	    day : 'Dia',
+	    allDayText : 'Todo Dia'
+	};
+		
+</script>
+</ui:define>
+</ui:composition>
+</html>
